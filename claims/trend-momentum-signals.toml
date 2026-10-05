@@ -1,0 +1,13 @@
+slug = "trend-momentum-signals"
+order = 5
+title = "Trend and momentum \"AI signals\""
+kind = "Signal groups and indicator bots"
+claim = "Ride the trend: hold when the price is above its moving average or up over the last few weeks, and sit in cash otherwise. Dodge the crashes, keep the gains."
+source = "The most common logic behind paid signal groups and \"AI\" bots"
+source_url = ""
+tested_on = "2026-10-05"
+experiment = "backtest"
+families = ["trend", "tsmom", "vol_target"]
+verdict = "not_alpha"
+summary = "The closest thing to a contender. At fantasy fees it looks like a winner; at real fees the best version only matched holding Bitcoin, lost to it from 2023, and fails the luck test once all 13 attempts are counted."
+what_we_tested = "Moving-average filters (50, 100 and 200 days), momentum (14, 28 and 56 days) and a volatility-targeted trend filter on daily Bitcoin candles, then the chosen versions on Ether."

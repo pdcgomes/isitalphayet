@@ -1,0 +1,13 @@
+slug = "rsi-dip-buying"
+order = 4
+title = "\"Buy when RSI is oversold\""
+kind = "Classic indicator strategy"
+claim = "When the Relative Strength Index drops below 30 (or 20), the market is oversold: buy the dip and sell the bounce."
+source = "Everywhere: trading courses, signal groups and indicator scripts"
+source_url = ""
+tested_on = "2026-10-05"
+experiment = "backtest"
+families = ["rsi"]
+verdict = "not_alpha"
+summary = "In crypto, oversold often gets more oversold. The rule kept buying into falls that kept falling, and lost money even at the X article's fantasy fee."
+what_we_tested = "Buy when the 14-bar RSI on 4-hour Bitcoin candles falls below 20, 25 or 30; sell when it rises back above 50."

@@ -1,0 +1,13 @@
+slug = "grid-bots"
+order = 3
+title = "Grid bots: \"profit from every wiggle\""
+kind = "Bot built into many exchanges"
+claim = "Place buy orders below the price and sell orders above it, and pocket a small profit every time the price wiggles. Often sold as passive income."
+source = "Offered by many crypto exchanges and promoted widely on social media"
+source_url = ""
+tested_on = "2026-10-05"
+experiment = "backtest"
+families = ["grid"]
+verdict = "not_alpha"
+summary = "It earns small, frequent profits until the price trends, then ends up holding the most coins at the worst moment. The constant trading hands most of what is left to the exchange."
+what_we_tested = "A grid of 10 levels, plus or minus 10% or 20% around the price and re-centred every 30 days, on 4-hour Bitcoin candles since August 2017."

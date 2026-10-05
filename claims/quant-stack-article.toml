@@ -1,0 +1,13 @@
+slug = "quant-stack-article"
+order = 1
+title = "\"The $200,000 quant stack you can build in an evening\""
+kind = "Viral X Article"
+claim = "Rebuild a hedge fund's research stack with an AI in one evening: backtest engine, leakage checks, multiple-testing correction, walk-forward validation and position sizing. \"Full code. Copy it tonight or keep trading noise.\""
+source = "X Article, 30 Aug 2026: 1.58 million views and 2,577 bookmarks"
+source_url = "https://x.com/x_insider4/status/2094086302849179706"
+tested_on = "2026-10-05"
+experiment = "article_audit"
+families = []
+verdict = "not_alpha"
+summary = "Much of the advice is sound: delay every signal, include costs, count every variation, test on unseen data. But the published code undermines it, and nothing in the article shows a strategy that makes money."
+what_we_tested = "We ran the article's own functions as published: its luck test, its walk-forward function and its cost settings, against nine years of Bitcoin prices."

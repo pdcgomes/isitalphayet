@@ -1,0 +1,13 @@
+slug = "tradingagents"
+order = 2
+title = "TradingAgents: \"a trading firm made of AI agents\""
+kind = "Open-source AI trading framework"
+claim = "A team of AI agents (analysts, bull and bear researchers, a trader and risk managers) debates every trade. Its paper reports 23-27% returns in three months, with Sharpe ratios of 5.6 to 8.2."
+source = "GitHub, about 110,000 stars; arXiv paper 2412.20138, with results for January to March 2024"
+source_url = "https://github.com/TauricResearch/TradingAgents"
+tested_on = "2026-10-05"
+experiment = "tradingagents"
+families = []
+verdict = "not_alpha"
+summary = "Run as shipped (v0.6.0 on OpenAI's GPT-6 Luna and Sol), on weekly dates its models could not have seen, its calls were right about as often as a coin toss and added nothing beyond simply being less invested."
+what_we_tested = "Weekly decisions on Bitcoin and Ether from 1 June to 28 September 2026, after the models' knowledge cutoff, plus NVDA on its stock pipeline. Each rating set how much money sat in the asset for the next 7 days, after real fees."

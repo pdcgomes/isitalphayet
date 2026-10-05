@@ -1,0 +1,11 @@
+.env
+data/
+.venv/
+__pycache__/
+.pytest_cache/
+experiments/tradingagents/.venv/
+experiments/tradingagents/state/
+experiments/tradingagents/vendor/
+site/node_modules/
+site/dist/
+.render/

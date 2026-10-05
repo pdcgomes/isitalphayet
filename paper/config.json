@@ -1,0 +1,8 @@
+{
+  "variant": "trend(n=50)",
+  "label": "plumbing test (no strategy passed the gates)",
+  "pair": "XBTGBP",
+  "capital_gbp": 1000.0,
+  "fee_per_side": 0.0085,
+  "started_at": "2026-10-05T14:55:01+00:00"
+}

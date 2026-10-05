@@ -1,0 +1,29 @@
+{
+  "trials": 80,
+  "deflated_sharpe_gate": {
+    "1 year": {
+      "article": 2.64,
+      "correct": 4.12
+    },
+    "4 years": {
+      "article": 2.54,
+      "correct": 2.06
+    },
+    "8 years": {
+      "article": 2.52,
+      "correct": 1.45
+    }
+  },
+  "walk_forward_defaults": {
+    "train_days": 180,
+    "test_days": 60,
+    "metrics_minimum_observations": 100,
+    "crashes": true,
+    "error": "KeyError: 'sharpe'"
+  },
+  "costs": {
+    "article_per_side": 0.0008,
+    "kraken_taker_per_side": 0.0085,
+    "ratio": 10.625
+  }
+}

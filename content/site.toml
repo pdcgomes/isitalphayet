@@ -1,0 +1,71 @@
+# Copy and source facts for the site that are not lab outputs. Lab numbers come from experiments/results.
+
+[feed]
+# The viral X Article we started from, as of 5 Oct 2026.
+views = 1582601
+bookmarks = 2577
+likes = 548
+followers = 5367
+
+[sources]
+# GitHub, 5 Oct 2026.
+tradingagents_stars = 109832
+
+[forward_test]
+start = "2026-10-05"
+end = "2026-11-23"
+weeks = 8
+
+[[gates]]
+name = "Beat buying and holding on years it never saw"
+detail = "Chosen using 2017-2022 only, then judged on 2023 to Sep 2026: its Sharpe or Calmar ratio must beat buy-and-hold's."
+
+[[gates]]
+name = "Survive the luck test"
+detail = "Deflated Sharpe of at least 0.95: the chance its edge is real after allowing for all 13 strategies we tried."
+
+[[gates]]
+name = "Hold up six months at a time"
+detail = "Re-picked every six months from earlier data only, it must make money in at least 60% of those periods."
+
+[[gates]]
+name = "Work on a different coin, unchanged"
+detail = "The same rule on Ether, with no re-tuning, must beat holding Ether."
+
+[[limitations]]
+text = "Prices are Binance's BTCUSDT and ETHUSDT in US dollars. A UK account trading in pounds would also carry currency moves."
+
+[[limitations]]
+text = "Fees are Kraken Pro's entry tier (checked 5 Oct 2026). Bigger accounts pay less; that helps active strategies, but not enough to change the verdicts here."
+
+[[limitations]]
+text = "TradingAgents' sentiment analyst got little social data: StockTwits and Reddit refused automated requests from our machine, and its macro tool was off without a FRED key."
+
+[[limitations]]
+text = "34 directional TradingAgents calls can only reveal a large edge. A small real edge would need years of forward testing to show."
+
+[[limitations]]
+text = "Seventeen 4-hour candles are missing from Binance's history, during exchange outages in 2017 and 2018. They were left out, as a real bot would have missed them too."
+
+[[limitations]]
+text = "Past results say nothing certain about the future, in either direction. Nothing here is financial advice."
+
+[[corrections]]
+date = "2026-10-05"
+text = "Paper trader: a decision now fills only at the first open after it was recorded, so a late run can never trade at a past price. Fixed before any paper trade happened."
+
+[[corrections]]
+date = "2026-10-05"
+text = "TradingAgents runner: the machine's environment pointed OpenAI clients at another provider. The runner now forces the official endpoint and our key. The failed first attempt made no decisions and cost nothing."
+
+[[corrections]]
+date = "2026-10-05"
+text = "Backtest report: replaced a misleading fee measure (fees as a share of starting capital) with annual fee drag. No results changed."
+
+[[corrections]]
+date = "2026-10-05"
+text = "Chart title: the best strategy matched buy-and-hold over the full period rather than losing to it. Corrected before publishing."
+
+[[corrections]]
+date = "2026-10-05"
+text = "Simulator: rounding error could count a phantom trade when a fully invested weight read as 1.0000000000000002. Fixed and re-run; trade counts changed by at most one and returns did not change."
