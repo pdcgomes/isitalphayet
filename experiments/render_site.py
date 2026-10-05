@@ -5,6 +5,7 @@ Usage (after `npm run build` in site/):
     uv run python experiments/render_site.py pages    # full-page screenshots of the tracker pages
     uv run python experiments/render_site.py film     # share/is-it-alpha-yet.mp4, rendered frame by frame
     uv run python experiments/render_site.py share    # share/og.png and the thread images
+    uv run python experiments/render_site.py readme   # docs/images/, the README's screenshots and film preview
 """
 
 from __future__ import annotations
@@ -194,9 +195,47 @@ def share() -> None:
     print(f"Share images in {SHARE.relative_to(REPO_ROOT)}; og.png copied to site/public (rebuild to include it)")
 
 
+README_IMAGES = REPO_ROOT / "docs" / "images"
+README_STORY = [("pitch", 0.95), ("peek", 0.95), ("all-fees", 0.95), ("hindsight", 0.95), ("luck", 0.95), ("ai", 0.95)]
+README_PAGES = {"/claims": "page-claims.png", "/claims/trend-momentum-signals": "page-claim.png", "/live": "page-live.png"}
+README_PHONE = [("pitch", 0.95), ("all-fees", 0.95), ("verdict", 0)]
+
+
+def readme() -> None:
+    """The README's images: story beats, tracker pages, phone views and an animated preview of the film."""
+    film_path = SHARE / "is-it-alpha-yet.mp4"
+    if not film_path.exists():
+        raise SystemExit("Render the film first: uv run python experiments/render_site.py film")
+    README_IMAGES.mkdir(parents=True, exist_ok=True)
+    with preview_server(), chrome() as browser:
+        page = open_page(browser, "/", 1040, 720, scale=2)
+        for k, (beat, p) in enumerate(README_STORY, start=1):
+            scroll_to_beat(page, beat, p)
+            page.screenshot(path=str(README_IMAGES / f"story-{k}-{beat}.png"))
+        page.context.close()
+        for path, name in README_PAGES.items():
+            page = open_page(browser, path, 1040, 940, scale=2)
+            page.wait_for_timeout(300)
+            page.screenshot(path=str(README_IMAGES / name))
+            page.context.close()
+        page = open_page(browser, "/", 390, 844, scale=2)
+        for beat, p in README_PHONE:
+            scroll_to_beat(page, beat, p)
+            page.screenshot(path=str(README_IMAGES / f"phone-{beat}.png"))
+        page.context.close()
+    gif = README_IMAGES / "film-preview.gif"
+    subprocess.run(
+        ["ffmpeg", "-y", "-loglevel", "error", "-i", str(film_path), "-vf",
+         "fps=10,scale=400:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=96[p];[b][p]paletteuse=dither=bayer:bayer_scale=4",
+         str(gif)],
+        check=True,
+    )
+    print(f"README images in {README_IMAGES.relative_to(REPO_ROOT)} (film preview {gif.stat().st_size / 1e6:.1f} MB)")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["review", "pages", "film", "film-test", "share"])
+    parser.add_argument("command", choices=["review", "pages", "film", "film-test", "share", "readme"])
     parser.add_argument("--at", default="1,7,13,19,26,33,40,47,52", help="seconds, for film-test")
     args = parser.parse_args()
     if args.command == "review":
@@ -209,6 +248,8 @@ def main() -> None:
         film()
     elif args.command == "share":
         share()
+    elif args.command == "readme":
+        readme()
 
 
 if __name__ == "__main__":

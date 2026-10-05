@@ -1,12 +1,66 @@
-# Is It Alpha Yet?
+<h1 align="center">Is It Alpha Yet?</h1>
 
-Viral trading-bot claims, tested honestly. Live at [isitalphayet.com](https://isitalphayet.com).
+<p align="center"><strong>Viral trading-bot claims, tested honestly.</strong><br>
+<a href="https://isitalphayet.com">isitalphayet.com</a></p>
+
+<p align="center">
+  <img src="docs/images/film-preview.gif" width="360" alt="The 53-second film: a bot that turned $1,000 into $296 million, then each cheat behind the number removed">
+  <br><sub><a href="share/is-it-alpha-yet.mp4">The full film</a> (53 s, MP4, 4:5 for X)</sub>
+</p>
 
 As of 5 October 2026: five viral claims tested, none passed. The best strategy we tried only matched simply holding
 Bitcoin after real fees, and lost to it on years it had never seen. An open-source AI trading agent called the market
 right 16 times out of 34; a fair coin managed 20.
 
 Education, not financial advice.
+
+## The story
+
+The site opens as one more winning-bot pitch. Every number on its dashboard is real, produced by our code from real
+Bitcoin prices. Then it takes the number apart, one cheat at a time.
+
+<p align="center"><img src="docs/images/story-1-pitch.png" width="720" alt="A parody dashboard: an AI trading bot turned $1,000 into $296,080,470"></p>
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/story-2-peek.png" alt="Cheat 1: it peeks at tomorrow. Without the peek, $296 million becomes $84,465"><br>
+      <sub><strong>It peeks at tomorrow.</strong> Trading on a price before it exists turns $84,465 into $296 million.</sub></td>
+    <td width="50%"><img src="docs/images/story-3-all-fees.png" alt="All 13 strategies before and after real fees; holding made 38% a year"><br>
+      <sub><strong>Fantasy fees.</strong> At a UK retail fee of 0.85% a trade, the busiest strategies give most of it to the exchange.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/images/story-4-hindsight.png" alt="Cheat 3: picked after the race was run. On unseen years $1,000 became $2,900; holding made $5,055"><br>
+      <sub><strong>Picked in hindsight.</strong> Chosen on 2017 to 2022, the best strategy lost to holding on the years after.</sub></td>
+    <td><img src="docs/images/story-5-luck.png" alt="Cheat 4: 13 coin-flip strategies ended anywhere from $996 to $16,705"><br>
+      <sub><strong>Luck looks like skill.</strong> Thirteen coin-flip strategies, no skill at all, ended between $996 and $16,705.</sub></td>
+  </tr>
+</table>
+
+<p align="center"><img src="docs/images/story-6-ai.png" width="720" alt="TradingAgents got 16 of 34 weekly calls right; a fair coin got 20"></p>
+
+## The tracker
+
+Every claim gets its own page with the evidence: the claim in its own words, what we tested, the four tests, every
+variant and the walk-forward results. New claims are added as they spread.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/page-claims.png" alt="The claims tracker: 5 claims tested, 0 passed"></td>
+    <td width="50%"><img src="docs/images/page-claim.png" alt="A claim page: trend and momentum signals, with the equity chart and the four tests"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/images/page-live.png" alt="The live test: TradingAgents' weekly calls and a paper trade on Kraken prices"><br>
+      <sub><strong>The live test.</strong> Backtests can be fooled; next week can't. Weekly AI calls and a paper trade, scored as they happen.</sub></td>
+  </tr>
+</table>
+
+Built for phones first, since that's where the posts are read:
+
+<p align="center">
+  <img src="docs/images/phone-pitch.png" width="230" alt="The pitch on a phone">
+  <img src="docs/images/phone-all-fees.png" width="230" alt="The fees chart on a phone">
+  <img src="docs/images/phone-verdict.png" width="230" alt="The verdict on a phone: No.">
+</p>
 
 ## How the testing works
 
@@ -30,6 +84,7 @@ Education, not financial advice.
 - `paper/`: the paper trader and its append-only ledger
 - `site/`: the website (Vite, React and hand-made SVG charts; every number comes from `site/src/data/site.json`)
 - `share/`: the film, share images and generated launch copy
+- `docs/images/`: the images in this README
 
 ## Reproduce it
 
@@ -92,12 +147,13 @@ Routes:
 - `/?film=1`: the film, playing in the browser (press Play, then screen-record)
 - `/?shot=<scene>`: a single still
 
-To render the MP4 and share images (needs Google Chrome and `uv sync --group render`):
+To render the film, share images and README images (needs Google Chrome, ffmpeg and `uv sync --group render`):
 
 ```bash
 cd site && npm run build && cd ..
 uv run python experiments/render_site.py film    # share/is-it-alpha-yet.mp4, frame by frame
 uv run python experiments/render_site.py share   # share/og.png and the thread images
+uv run python experiments/render_site.py readme  # docs/images/
 uv run python experiments/write_share_copy.py    # share/copy.md, with numbers from the data
 ```
 
