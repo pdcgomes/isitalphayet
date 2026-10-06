@@ -303,7 +303,7 @@ def build() -> dict:
         claim["headline"] = headline(claim)
         claim.pop("polymarket", None)  # shared by three claims; exported once at the top level
         claims.append(claim)
-    claims.sort(key=lambda c: c["order"])
+    claims.sort(key=lambda c: c["order"], reverse=True)  # newest first: `order` counts up as claims are added
 
     forward = []
     for ticker, s in scores.get("forward", {}).items():
