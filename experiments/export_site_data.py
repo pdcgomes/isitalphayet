@@ -8,7 +8,7 @@ from __future__ import annotations
 import csv
 import json
 import tomllib
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 import pandas as pd
 from scipy.stats import binomtest
@@ -19,6 +19,8 @@ from lab.data import REPO_ROOT
 
 RESULTS = REPO_ROOT / "experiments" / "results"
 TA_RESULTS = REPO_ROOT / "experiments" / "tradingagents" / "results"
+PM = REPO_ROOT / "experiments" / "polymarket"
+PM_RESULTS = PM / "results"
 CLAIMS = REPO_ROOT / "claims"
 CONTENT = REPO_ROOT / "content" / "site.toml"
 PAPER = REPO_ROOT / "paper"
@@ -141,6 +143,76 @@ def ai_block(scores: dict) -> dict:
     }
 
 
+def variant_words(name: str) -> str:
+    """'15m | delay=300ms, margin=0.03' -> '300 ms delay, 3¢ margin'."""
+    delay, margin = name.split("| ")[1].split(", ")
+    return f"{delay.split('=')[1].replace('ms', ' ms')} delay, {float(margin.split('=')[1]) * 100:.0f}¢ margin"
+
+
+def polymarket_block(events: list[dict]) -> dict:
+    """Everything the Polymarket claim pages show, from experiments/polymarket/results."""
+    w, p, c = (load_json(PM_RESULTS / f"{n}.json") for n in ("wallets", "persistence", "calibration"))
+    b, lat, diag, viral = (load_json(PM_RESULTS / f"{n}.json")
+                           for n in ("bonds", "latency", "latency_diagnostics", "viral_wallets"))
+
+    def group(s: dict) -> dict:
+        return {"wallets": s["wallets"], **{k: rnd(s[k]) for k in (
+            "share_loss", "median", "total", "top_1pct_share_of_profit", "top_01pct_share_of_profit")}}
+
+    def bands(src: dict) -> list[dict]:
+        return [{"band": x["band"], "tokens": x["tokens"], "price": rnd(x["avg_price"]), "won": rnd(x["win_rate"]),
+                 "before_fees": rnd(x["ret_before_fees"]["mean"]), "after": rnd(x["ret_after_fees_tick"]["mean"]),
+                 "lo": rnd(x["ret_after_fees_tick"]["lo"]), "hi": rnd(x["ret_after_fees_tick"]["hi"])}
+                for x in src["bands"] if x["tokens"]]
+
+    def bond(x: dict) -> dict:
+        return {**{k: rnd(x[k]) for k in ("cagr", "cagr_lo", "cagr_hi", "win_rate", "max_drawdown", "final_equity")},
+                "positions": x["positions"], "losses": x["losses"], "equity_weekly": x["equity_weekly"],
+                "sports_pnl": rnd(x["pnl_by_category"].get("Sports", 0), 2)}
+
+    def regime(s: dict) -> dict:
+        return {"windows": s["windows"], "traded": s["traded"],
+                **{k: rnd(s[k]) for k in ("hit_rate", "mean_return", "lo95", "hi95")}}
+
+    start = date.fromisoformat(b["definitions"]["period"][0])
+    n_weeks = len(b["variants"]["D=30"]["equity_weekly"])
+    prereg = PM / "preregistration.md"
+    name = str(prereg.relative_to(REPO_ROOT))
+    registrations = [e for e in events if e.get("file") == name]
+    trials = {e["variant"] for e in events if e.get("study") == "polymarket" and e.get("counts_as_trial")}
+    return {
+        "preregistered_at": registrations[0]["timestamp"], "preregistration_sha256": registrations[0]["sha256"],
+        "preregistration_changes": len(registrations) - 1, "trials": len(trials),
+        "wallets": {"groups": {k: group(w["groups"][k]) for k in
+                               ("all", "automated", "human", "human_maker_heavy", "human_taker_heavy")},
+                    "by_volume": [{"band": k, **group(s)} for k, s in w["human_by_volume"].items()]},
+        "persistence": {
+            "splits": [{"label": k.replace(" -> ", " then "), "beats_null": s["beats_null"], "wallets": s["wallets"],
+                        **{x: rnd(s[x]) for x in ("top_mean_next", "null_p025", "null_p975", "spearman")}}
+                       for k, sp in p["splits"].items() for s in [sp["human"]]],
+            "splits_beating_null": p["verdict"]["human"]["splits_beating_null"],
+        },
+        "calibration": {"markets": c["horizons"]["7"]["markets"], "recorded_close": bands(c["horizons"]["7"]),
+                        "scheduled_end": bands(c["sensitivity_scheduled_expiration"])},
+        "bonds": {"cash_rate": b["definitions"]["cash_rate"],
+                  "weeks": [(start + timedelta(days=7 * i)).isoformat() for i in range(n_weeks)],
+                  "registered": {k: bond(v) for k, v in b["variants"].items()},
+                  "open_at_end_of_day": {k: bond(v) for k, v in b["robustness_open_at_end_of_day"].items()}},
+        "latency": {
+            "variants": [{"name": variant_words(k), "eligible": v["eligible"], "passes": v["passes"],
+                          "before": regime(lat["results"][k]["before_twap"]),
+                          "after": regime(lat["results"][k]["after_twap"])} for k, v in lat["verdict"].items()],
+            "works_for_retail": lat["works_for_retail"],
+            "forecast": [{"seconds_left": int(k), "windows": d["windows"], "model": rnd(d["brier_model"]),
+                          "market": rnd(d["brier_market"])} for k, d in sorted(diag.items(), key=lambda kv: -int(kv[0]))],
+        },
+        "viral": {"fee_changes": viral["fee_changes"],
+                  "wallets": [{"address": x["address"], "label": x["label"],
+                               "months": [{k: m[k] for k in ("month", "volume", "trading_profit", "trades")}
+                                          for m in x["months"]]} for x in viral["wallets"]]},
+    }
+
+
 def headline(claim: dict) -> str:
     if claim["experiment"] == "backtest":
         best = max(claim["families"], key=lambda f: f["full_cagr"]["kraken_taker"])
@@ -155,6 +227,21 @@ def headline(claim: dict) -> str:
     if claim["experiment"] == "article_audit":
         c = claim["audit"]["costs"]
         return f"Assumes fees of {pct(c['article_per_side'], 2)} a trade; a UK retail account pays {pct(c['kraken_taker_per_side'], 2)}"
+    if claim["experiment"] == "polymarket":
+        pm = claim["polymarket"]
+        test = claim["polymarket_test"]
+        if test == "latency":
+            if pm["latency"]["works_for_retail"]:
+                return "A retail-speed version beat luck after fees"
+            return "No version beat luck after fees; the market's own price forecast better than the bot"
+        if test == "bonds":
+            b = pm["bonds"]["open_at_end_of_day"]["D=30"]
+            return (f"{pct(b['win_rate'])} of bets won, and it made {pct(b['cagr'], 1)} a year against "
+                    f"{pct(pm['bonds']['cash_rate'], 2)} cash")
+        if test == "copy":
+            g = pm["wallets"]["groups"]["all"]
+            k = pm["persistence"]["splits_beating_null"]
+            return f"{pct(g['share_loss'])} of wallets lose; past winners beat luck in {k} of 4 half-years"
     raise ValueError(f"unknown experiment {claim['experiment']}")
 
 
@@ -166,7 +253,8 @@ def build() -> dict:
     content = tomllib.loads(CONTENT.read_text())
     curves = pd.read_csv(RESULTS / "growth_of_1000_weekly.csv", index_col="week", parse_dates=True)
     events = ledger.read()
-    registration = next(e for e in events if e.get("event") == "preregistration")
+    registration = next(e for e in events if e.get("event") == "preregistration"
+                        and e.get("file", "experiments/preregistration.md") == "experiments/preregistration.md")
     ai = ai_block(scores)
 
     bh = hype["buy_and_hold"]
@@ -199,6 +287,7 @@ def build() -> dict:
         "sources": content["sources"],
     }
 
+    polymarket = polymarket_block(events)
     claims = []
     for path in sorted(CLAIMS.glob("*.toml")):
         claim = tomllib.loads(path.read_text())
@@ -209,7 +298,10 @@ def build() -> dict:
         elif claim["experiment"] == "article_audit":
             claim["audit"] = audit
             claim["look_ahead"] = story["look_ahead"]
+        elif claim["experiment"] == "polymarket":
+            claim["polymarket"] = polymarket
         claim["headline"] = headline(claim)
+        claim.pop("polymarket", None)  # shared by three claims; exported once at the top level
         claims.append(claim)
     claims.sort(key=lambda c: c["order"])
 
@@ -226,8 +318,10 @@ def build() -> dict:
         "meta": {
             "preregistration_sha256": registration["sha256"],
             "preregistered_at": registration["timestamp"],
-            "preregistration_changes": sum(1 for e in events if e.get("event") == "preregistration_changed"),
+            "preregistration_changes": sum(1 for e in events if e.get("event") == "preregistration_changed"
+                                           and e.get("file") == "experiments/preregistration.md"),
             "trials": summary["trials_logged"],
+            "polymarket_trials": polymarket["trials"],
             "runs_logged": sum(1 for e in events if e.get("event") in ("run", "demo_run")),
             "fees": FEE_SCENARIOS,
             "design_period": "2017-08-17 to 2022-12-31",
@@ -238,6 +332,7 @@ def build() -> dict:
         },
         "story": story,
         "claims": claims,
+        "polymarket": polymarket,
         "live": {
             "forward_test": {**content["forward_test"], "calls": sorted(forward, key=lambda w: (w["date"], w["ticker"]))},
             "paper": {
@@ -251,6 +346,7 @@ def build() -> dict:
             "limitations": [x["text"] for x in content["limitations"]],
             "corrections": content["corrections"],
             "preregistration_text": (REPO_ROOT / "experiments" / "preregistration.md").read_text(),
+            "polymarket_preregistration_text": (PM / "preregistration.md").read_text(),
         },
     }
 

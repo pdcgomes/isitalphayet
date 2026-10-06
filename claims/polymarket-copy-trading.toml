@@ -1,0 +1,14 @@
+slug = "polymarket-copy-trading"
+order = 8
+title = "Copy Polymarket's winning wallets"
+kind = "Copy-trading apps and paid bots"
+claim = "Find the wallets that win and copy their trades. Apps promise to \"find insiders before the rest\", and a $499 bot sells itself on copying an account that \"famously scaled $68 into $1.5M\"."
+source = "Copy-trading apps and bot sellers, 2026"
+source_url = ""
+tested_on = "2026-10-06"
+experiment = "polymarket"
+polymarket_test = "copy"
+families = []
+verdict = "not_alpha"
+summary = "Most wallets lose, and the money flows from people to bots. Last period's biggest winners didn't reliably keep winning, a copier buys later and at worse prices, and the account that $499 bot copies stopped trading in March 2026."
+what_we_tested = "Profit for every Polymarket wallet from November 2022 to March 2026, from an academic dataset, split into people and bots. Then whether each half-year's top 1% beat equally large losers in the next half-year, compared with what luck alone produces."

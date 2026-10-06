@@ -1,0 +1,34 @@
+{
+ "10": {
+  "windows": 235,
+  "brier_model": 0.06952103880948703,
+  "brier_market": 0.060630288297872335,
+  "brier_coin": 0.25,
+  "model_vs_market_correlation": 0.8504940428402809,
+  "mean_abs_gap": 0.13437441069583309
+ },
+ "60": {
+  "windows": 476,
+  "brier_model": 0.0890374302129566,
+  "brier_market": 0.07727070483193278,
+  "brier_coin": 0.25,
+  "model_vs_market_correlation": 0.9124499369584397,
+  "mean_abs_gap": 0.09825041433541314
+ },
+ "300": {
+  "windows": 816,
+  "brier_model": 0.13134579070104482,
+  "brier_market": 0.13031060447303922,
+  "brier_coin": 0.25,
+  "model_vs_market_correlation": 0.9582005629958149,
+  "mean_abs_gap": 0.06399462051458571
+ },
+ "600": {
+  "windows": 813,
+  "brier_model": 0.20267026447783265,
+  "brier_market": 0.19867516635916357,
+  "brier_coin": 0.25,
+  "model_vs_market_correlation": 0.9540168457988857,
+  "mean_abs_gap": 0.06143637338201603
+ }
+}

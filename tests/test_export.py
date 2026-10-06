@@ -45,3 +45,20 @@ def test_family_curves_share_the_story_dates():
     for claim in site["claims"]:
         for family in claim.get("families", []):
             assert all(len(curve) == weeks for curve in family["growth_weekly"].values())
+
+
+def test_polymarket_block_lines_up_with_its_results():
+    pm = site["polymarket"]
+    weeks = len(pm["bonds"]["weeks"])
+    for runs in (pm["bonds"]["registered"], pm["bonds"]["open_at_end_of_day"]):
+        assert all(len(r["equity_weekly"]) == weeks for r in runs.values())
+    assert pm["trials"] == site["meta"]["polymarket_trials"] == 10
+    assert len(pm["latency"]["variants"]) == 6
+    assert len(pm["persistence"]["splits"]) == 4
+    claims = [c for c in site["claims"] if c["experiment"] == "polymarket"]
+    assert {c["polymarket_test"] for c in claims} == {"latency", "bonds", "copy"}
+    assert all("polymarket" not in c for c in claims)
+
+
+def test_lab_preregistration_changes_only_count_the_lab_file():
+    assert site["meta"]["preregistration_changes"] == 0

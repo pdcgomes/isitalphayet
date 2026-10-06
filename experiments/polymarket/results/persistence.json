@@ -1,0 +1,143 @@
+{
+ "definitions": {
+  "top": 0.01,
+  "null": "evaluation profit shuffled within deciles of |formation profit|",
+  "rule": "skill persists if the top 1% beat the null's 97.5th percentile in >= 3 of 4 splits"
+ },
+ "months_in_data": [
+  "2022-10",
+  "2026-03"
+ ],
+ "splits": {
+  "2023H2 -> 2024H1": {
+   "human": {
+    "wallets": 8403,
+    "top_wallets": 84,
+    "spearman": 0.006166689515011224,
+    "top_share_profitable_next": 0.4166666666666667,
+    "all_share_profitable_next": 0.2064738783767702,
+    "top_mean_next": 15603.562672488682,
+    "top_median_next": 0.0,
+    "top_mean_formation": 26318.499841121386,
+    "null_mean": 4892.422882016903,
+    "null_p025": -3368.3930729241583,
+    "null_p975": 15788.914183404222,
+    "beats_null": false
+   },
+   "automated": {
+    "wallets": 16,
+    "top_wallets": 1,
+    "spearman": 0.6323529411764706,
+    "top_share_profitable_next": 1.0,
+    "all_share_profitable_next": 0.8125,
+    "top_mean_next": 1446409.0188533673,
+    "top_median_next": 1446409.0188533673,
+    "top_mean_formation": 197744.26987996473,
+    "null_mean": 1228788.6106799273,
+    "null_p025": 1026292.400757924,
+    "null_p975": 1446409.0188533673,
+    "beats_null": false
+   }
+  },
+  "2024H1 -> 2024H2": {
+   "human": {
+    "wallets": 63582,
+    "top_wallets": 636,
+    "spearman": 0.052148134860622655,
+    "top_share_profitable_next": 0.360062893081761,
+    "all_share_profitable_next": 0.3412915605045453,
+    "top_mean_next": -10561.624996636787,
+    "top_median_next": -85.82325579938788,
+    "top_mean_formation": 32456.220820872135,
+    "null_mean": -1992.2455453899574,
+    "null_p025": -10096.003043387263,
+    "null_p975": 4611.632497323571,
+    "beats_null": false
+   },
+   "automated": {
+    "wallets": 78,
+    "top_wallets": 1,
+    "spearman": 0.32147102778180014,
+    "top_share_profitable_next": 1.0,
+    "all_share_profitable_next": 0.6923076923076923,
+    "top_mean_next": 273697.56462463434,
+    "top_median_next": 273697.56462463434,
+    "top_mean_formation": 1446409.0188533673,
+    "null_mean": 316794.2913071315,
+    "null_p025": -48779.2077266539,
+    "null_p975": 1160732.8988471637,
+    "beats_null": false
+   }
+  },
+  "2024H2 -> 2025H1": {
+   "human": {
+    "wallets": 837264,
+    "top_wallets": 8373,
+    "spearman": 0.0037763448681539824,
+    "top_share_profitable_next": 0.2456706079063657,
+    "all_share_profitable_next": 0.34790340919948787,
+    "top_mean_next": -50.35276250434113,
+    "top_median_next": 0.0,
+    "top_mean_formation": 14825.022380064314,
+    "null_mean": -100.04086272897446,
+    "null_p025": -382.19290505788257,
+    "null_p975": 131.07653859683046,
+    "beats_null": false
+   },
+   "automated": {
+    "wallets": 4089,
+    "top_wallets": 41,
+    "spearman": -0.07282761459944506,
+    "top_share_profitable_next": 0.3170731707317073,
+    "all_share_profitable_next": 0.2235265346050379,
+    "top_mean_next": 102564.76503932549,
+    "top_median_next": 0.0,
+    "top_mean_formation": 2793579.092080142,
+    "null_mean": 20534.275292772858,
+    "null_p025": -21973.2208531959,
+    "null_p975": 66348.68229428839,
+    "beats_null": true
+   }
+  },
+  "2025H1 -> 2025H2": {
+   "human": {
+    "wallets": 939252,
+    "top_wallets": 9393,
+    "spearman": 0.08436424732135735,
+    "top_share_profitable_next": 0.3312040881507506,
+    "all_share_profitable_next": 0.24318287317993467,
+    "top_mean_next": 1784.971380079667,
+    "top_median_next": 0.0,
+    "top_mean_formation": 10710.369731888988,
+    "null_mean": 52.63573202429035,
+    "null_p025": -384.63888029985327,
+    "null_p975": 449.4128425137448,
+    "beats_null": true
+   },
+   "automated": {
+    "wallets": 2091,
+    "top_wallets": 21,
+    "spearman": 0.24104909657745627,
+    "top_share_profitable_next": 0.47619047619047616,
+    "all_share_profitable_next": 0.19799139167862267,
+    "top_mean_next": 90139.72656492775,
+    "top_median_next": 0.0,
+    "top_mean_formation": 882623.7279178977,
+    "null_mean": 104812.38793741298,
+    "null_p025": -58059.27970067038,
+    "null_p975": 321867.9255753956,
+    "beats_null": false
+   }
+  }
+ },
+ "verdict": {
+  "human": {
+   "splits_beating_null": 1,
+   "skill_persists": false
+  },
+  "automated": {
+   "splits_beating_null": 1,
+   "skill_persists": false
+  }
+ }
+}

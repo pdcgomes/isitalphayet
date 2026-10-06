@@ -3,6 +3,7 @@ import { REPO_URL } from "../config";
 import { data } from "../lib/data";
 import { longDate, pct } from "../lib/format";
 import { Markdown } from "../lib/markdown";
+import { Link } from "../lib/router";
 
 const FEE_DESCRIPTIONS: Record<string, string> = {
   article: "What the viral X Article assumes: 5 basis points of fee plus 3 of slippage",
@@ -11,7 +12,7 @@ const FEE_DESCRIPTIONS: Record<string, string> = {
 };
 
 export default function Method() {
-  const { meta, method } = data;
+  const { meta, method, polymarket: pm } = data;
   return (
     <Shell title="How we tested">
       <header className="page-head">
@@ -23,7 +24,7 @@ export default function Method() {
         </p>
         <div className="stats">
           <Stat value={longDate(meta.preregistered_at)} label="Rules fixed, before any test ran" />
-          <Stat value={meta.trials} label="Strategy variants, all counted" />
+          <Stat value={meta.trials + meta.polymarket_trials} label="Strategy versions, all counted" />
           <Stat value={meta.runs_logged.toLocaleString("en-GB")} label="Runs in the public ledger" />
         </div>
       </header>
@@ -64,6 +65,21 @@ export default function Method() {
         itself.
       </p>
 
+      <h2>Prediction markets (Polymarket)</h2>
+      <p className="prose">
+        The three Polymarket claims share one study with its own pre-registration, fixed on {longDate(pm.preregistered_at)}{" "}
+        before any outcome data was downloaded, and {pm.trials} counted strategy versions. Wallet profits and daily prices
+        come from the public dataset behind Akey, Grégoire, Harvie and Martineau (2026), November 2022 to March 2026; the
+        latency bot is replayed on Polymarket order books recorded every 100 ms between May and August 2026; the viral
+        wallets come from Polymarket's own public data. Every test charges today's taker fee, feeRate × p × (1 − p) per
+        share (7% for crypto, 4-5% elsewhere), plus a tick of spread. The benchmark is cash at the Bank of England's{" "}
+        {pct(pm.bonds.cash_rate, 2)}, or a coin flip. No account was opened: Polymarket geoblocks the UK.
+      </p>
+      <p className="prose">
+        <Link to="/claims/polymarket-latency-bots">Latency bots</Link> · <Link to="/claims/polymarket-bonds">"Bonds"</Link> ·{" "}
+        <Link to="/claims/polymarket-copy-trading">Copying winning wallets</Link>
+      </p>
+
       <h2>Limitations</h2>
       <ul className="prose">
         {method.limitations.map((l) => (
@@ -101,6 +117,18 @@ uv run python experiments/export_site_data.py  # everything this site shows`}</p
       <div className="card prereg">
         <Markdown source={method.preregistration_text} />
       </div>
+
+      <details className="prereg-more">
+        <summary>The Polymarket pre-registration</summary>
+        <p className="small muted">
+          SHA-256 <code>{pm.preregistration_sha256}</code>, recorded {new Date(pm.preregistered_at).toUTCString()}.{" "}
+          {pm.preregistration_changes} logged clarification{pm.preregistration_changes === 1 ? "" : "s"}, made before the
+          tests it affects were run.
+        </p>
+        <div className="card prereg">
+          <Markdown source={method.polymarket_preregistration_text} />
+        </div>
+      </details>
     </Shell>
   );
 }

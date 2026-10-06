@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from datetime import datetime, timezone
+from pathlib import Path
 
 from .data import REPO_ROOT
 
@@ -25,13 +26,15 @@ def append(record: dict) -> None:
         f.write(json.dumps(stamped, default=float) + "\n")
 
 
-def check_preregistration() -> str:
-    """Return the pre-registration's hash, logging a visible event if it changed since it was registered."""
-    digest = hashlib.sha256(PREREGISTRATION.read_bytes()).hexdigest()
-    registered = [e["sha256"] for e in read() if e.get("event") in ("preregistration", "preregistration_changed")]
+def check_preregistration(path: Path = PREREGISTRATION) -> str:
+    """Return a pre-registration's hash, logging a visible event if it changed since it was registered."""
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    name = str(path.relative_to(REPO_ROOT))
+    registered = [e["sha256"] for e in read()
+                  if e.get("event") in ("preregistration", "preregistration_changed") and e.get("file") == name]
     if not registered or registered[-1] != digest:
         event = "preregistration_changed" if registered else "preregistration"
-        append({"event": event, "file": str(PREREGISTRATION.relative_to(REPO_ROOT)), "sha256": digest})
+        append({"event": event, "file": name, "sha256": digest})
     return digest
 
 

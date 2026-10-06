@@ -1,0 +1,256 @@
+{
+ "fetched": "2026-10-06T07:53:39+00:00",
+ "source": "https://data-api.polymarket.com/v2/user-pnl",
+ "fee_changes": {
+  "2026-01-05": "Taker fees on 15-minute crypto markets",
+  "2026-03-06": "Fees on all crypto markets",
+  "2026-03-30": "Fees on most other categories"
+ },
+ "wallets": [
+  {
+   "address": "0x63ce342161250d705dc0b16df89036c8e5f9ba9a",
+   "label": "0x8dxd, the \"$313 into $414K\" latency bot",
+   "first_day": "2025-12-05",
+   "months": [
+    {
+     "month": "2025-12",
+     "trading_profit": 321567.24,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 13835775.03,
+     "trades": 887364.0
+    },
+    {
+     "month": "2026-01",
+     "trading_profit": 518789.36,
+     "rebates_rewards_referrals": 17193.68,
+     "fees_paid": -71232.51,
+     "volume": 23198004.36,
+     "trades": 1170542.0
+    },
+    {
+     "month": "2026-02",
+     "trading_profit": 739988.65,
+     "rebates_rewards_referrals": 31835.57,
+     "fees_paid": -136050.16,
+     "volume": 31399280.81,
+     "trades": 1706353.0
+    },
+    {
+     "month": "2026-03",
+     "trading_profit": 470458.9,
+     "rebates_rewards_referrals": 32142.71,
+     "fees_paid": -114979.4,
+     "volume": 21819128.09,
+     "trades": 1393216.0
+    },
+    {
+     "month": "2026-04",
+     "trading_profit": 175.1,
+     "rebates_rewards_referrals": 24904.0,
+     "fees_paid": 0.0,
+     "volume": 22938.31,
+     "trades": 30.0
+    },
+    {
+     "month": "2026-05",
+     "trading_profit": 1.13,
+     "rebates_rewards_referrals": 3372.75,
+     "fees_paid": 0.0,
+     "volume": 14.54,
+     "trades": 1.0
+    },
+    {
+     "month": "2026-06",
+     "trading_profit": -0.0,
+     "rebates_rewards_referrals": 7107.36,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    },
+    {
+     "month": "2026-07",
+     "trading_profit": -0.0,
+     "rebates_rewards_referrals": 4772.09,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    },
+    {
+     "month": "2026-08",
+     "trading_profit": -1621.77,
+     "rebates_rewards_referrals": 153.58,
+     "fees_paid": -153.29,
+     "volume": 567206.54,
+     "trades": 3438.0
+    },
+    {
+     "month": "2026-09",
+     "trading_profit": 1055.9,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    },
+    {
+     "month": "2026-10",
+     "trading_profit": -0.0,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    }
+   ]
+  },
+  {
+   "address": "0xd0d6053c3c37e727402d84c14069780d360993aa",
+   "label": "the \"$68 into $1.5M\" account a $499 bot copies",
+   "first_day": "2025-12-18",
+   "months": [
+    {
+     "month": "2025-12",
+     "trading_profit": 13051.09,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 1969394.62,
+     "trades": 248517.0
+    },
+    {
+     "month": "2026-01",
+     "trading_profit": 365683.2,
+     "rebates_rewards_referrals": 24993.21,
+     "fees_paid": -74061.9,
+     "volume": 24887682.24,
+     "trades": 1480026.0
+    },
+    {
+     "month": "2026-02",
+     "trading_profit": 581081.74,
+     "rebates_rewards_referrals": 38771.96,
+     "fees_paid": -110342.69,
+     "volume": 34643738.34,
+     "trades": 2973738.0
+    },
+    {
+     "month": "2026-03",
+     "trading_profit": 433504.99,
+     "rebates_rewards_referrals": 26364.69,
+     "fees_paid": -135709.28,
+     "volume": 28648137.55,
+     "trades": 2595978.0
+    },
+    {
+     "month": "2026-04",
+     "trading_profit": 0.0,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": -0.0,
+     "volume": 213.99,
+     "trades": 2.0
+    },
+    {
+     "month": "2026-05",
+     "trading_profit": 0.0,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    },
+    {
+     "month": "2026-06",
+     "trading_profit": 0.0,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    },
+    {
+     "month": "2026-07",
+     "trading_profit": 0.0,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    },
+    {
+     "month": "2026-08",
+     "trading_profit": 0.0,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    },
+    {
+     "month": "2026-09",
+     "trading_profit": -0.41,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    },
+    {
+     "month": "2026-10",
+     "trading_profit": 0.0,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": 0.0,
+     "volume": 0.0,
+     "trades": 0.0
+    }
+   ]
+  },
+  {
+   "address": "0xdf4c6a942bd95bf903d6066b4ba7051e6f914f22",
+   "label": "that bot vendor's own live bot",
+   "first_day": "2026-05-08",
+   "months": [
+    {
+     "month": "2026-05",
+     "trading_profit": 4829.41,
+     "rebates_rewards_referrals": 2302.79,
+     "fees_paid": -1157.69,
+     "volume": 470049.98,
+     "trades": 74366.0
+    },
+    {
+     "month": "2026-06",
+     "trading_profit": 14925.69,
+     "rebates_rewards_referrals": 4743.95,
+     "fees_paid": -4720.78,
+     "volume": 1132970.49,
+     "trades": 125607.0
+    },
+    {
+     "month": "2026-07",
+     "trading_profit": 19716.97,
+     "rebates_rewards_referrals": 7982.05,
+     "fees_paid": -5006.28,
+     "volume": 1397776.93,
+     "trades": 127558.0
+    },
+    {
+     "month": "2026-08",
+     "trading_profit": 19644.13,
+     "rebates_rewards_referrals": 8208.27,
+     "fees_paid": -5970.72,
+     "volume": 917738.4,
+     "trades": 91286.0
+    },
+    {
+     "month": "2026-09",
+     "trading_profit": 5206.82,
+     "rebates_rewards_referrals": 3592.91,
+     "fees_paid": -5148.58,
+     "volume": 708691.34,
+     "trades": 83405.0
+    },
+    {
+     "month": "2026-10",
+     "trading_profit": -48.87,
+     "rebates_rewards_referrals": 0.0,
+     "fees_paid": -351.81,
+     "volume": 54228.93,
+     "trades": 8566.0
+    }
+   ]
+  }
+ ]
+}

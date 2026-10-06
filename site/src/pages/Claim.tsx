@@ -8,6 +8,7 @@ import { variantName, variantPhrase } from "../lib/names";
 import { Link } from "../lib/router";
 import type { Ai, Audit, Call, Claim, FamilyBlock, FeeKey, Story } from "../lib/types";
 import NotFound from "./NotFound";
+import { BondsSection, CopySection, LatencySection } from "./PolymarketSections";
 
 const FEE_LABEL: Record<FeeKey, string> = {
   article: "0.08% a trade (the X article)",
@@ -339,6 +340,9 @@ export default function ClaimPage({ slug }: { slug: string }) {
       {claim.experiment === "article_audit" && claim.audit && claim.look_ahead && (
         <AuditSection audit={claim.audit} lookAhead={claim.look_ahead} />
       )}
+      {claim.polymarket_test === "latency" && <LatencySection pm={data.polymarket} />}
+      {claim.polymarket_test === "bonds" && <BondsSection pm={data.polymarket} />}
+      {claim.polymarket_test === "copy" && <CopySection pm={data.polymarket} />}
     </Shell>
   );
 }

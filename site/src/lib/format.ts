@@ -30,6 +30,7 @@ export function pct(x: number, digits = 0): string {
 export function signedPct(x: number | null, digits = 1): string {
   if (x === null) return "pending";
   const v = (x * 100).toFixed(digits);
+  if (Number(v) === 0) return `${(0).toFixed(digits)}%`;
   return x > 0 ? `+${v}%` : `${v}%`;
 }
 

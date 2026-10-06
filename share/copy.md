@@ -1,6 +1,6 @@
 # Launch copy (draft)
 
-Generated from `site/src/data/site.json` on 2026-10-05, so the numbers match the site. Edit freely; rerun `uv run python experiments/write_share_copy.py` after the data changes.
+Generated from `site/src/data/site.json` on 2026-10-06, so the numbers match the site. Edit freely; rerun `uv run python experiments/write_share_copy.py` after the data changes.
 
 ## Posting notes
 
@@ -126,7 +126,7 @@ Every week another post promises a bot that turns pocket money into a fortune. S
 
 **Why your feed is full of this.** Posts are paid for attention, many exchanges pay referrers a cut of the fees their sign-ups pay, and you only ever see the lucky winners.
 
-Everything is public: the code, the pre-registration, the ledger of every run and the live forward test. We'll keep testing new claims as they go viral. 5 tested so far, 0 passed. isitalphayet.com
+Everything is public: the code, the pre-registration, the ledger of every run and the live forward test. We'll keep testing new claims as they go viral. 8 tested so far, 0 passed. isitalphayet.com
 
 Education, not financial advice.
 
@@ -134,4 +134,4 @@ Education, not financial advice.
 
 **Title:** Show HN: Is It Alpha Yet? Pre-registered tests of viral trading-bot claims
 
-We kept seeing posts promising AI trading bots that turn small sums into fortunes, so we tested them properly: rules written down before any backtest ran, 13 strategy variants all counted, nine years of Bitcoin and Ether prices, real UK retail fees, out-of-sample and walk-forward checks, plus TradingAgents on dates after its models' cutoff. 5 claims tested, 0 passed. The site opens as a parody of a bot pitch and switches off its cheats one at a time; the code, ledger and data are public.
+We kept seeing posts promising AI trading bots that turn small sums into fortunes, so we tested them properly: rules written down before any backtest ran, 13 strategy variants all counted, nine years of Bitcoin and Ether prices, real UK retail fees, out-of-sample and walk-forward checks, plus TradingAgents on dates after its models' cutoff. 8 claims tested, 0 passed. The site opens as a parody of a bot pitch and switches off its cheats one at a time; the code, ledger and data are public.

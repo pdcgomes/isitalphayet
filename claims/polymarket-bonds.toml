@@ -1,0 +1,14 @@
+slug = "polymarket-bonds"
+order = 7
+title = "Polymarket \"bonds\": \"95c, actual ~98%\""
+kind = "Viral strategy posts and guides"
+claim = "Buy outcomes that are almost certain, at 95 to 99 cents, and collect the last few cents when they pay $1. \"95c, actual ~98%… that's literally the whole edge.\" Sold as low-risk, steady income."
+source = "X post, December 2025, and strategy guides"
+source_url = "https://x.com/probabilitygod/status/1996498793026429058"
+tested_on = "2026-10-06"
+experiment = "polymarket"
+polymarket_test = "bonds"
+families = []
+verdict = "not_alpha"
+summary = "Polymarket's prices are close to the real odds, so there are no spare cents lying around. Nearly every bet won, but the few that lost took the whole stake, and the portfolio did worse than a savings account."
+what_we_tested = "How often outcomes at each price actually won, across tens of thousands of resolved markets. Then the strategy itself: $1,000 buying every 95-99¢ outcome due within 7 or 30 days, from January 2024 to March 2026, at today's fees and spread."

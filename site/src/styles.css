@@ -104,6 +104,7 @@ blockquote { margin: 0 0 0.6rem; padding: 0.2rem 0 0.2rem 1rem; border-left: 3px
 .family h3 { margin-top: 1.8rem; }
 .tables { align-items: start; }
 .table-wrap { overflow-x: auto; }
+.table-wrap + .prose { margin-top: 1.2rem; }
 table.data.narrow { max-width: 36rem; }
 .pass { color: var(--good); font-weight: 600; }
 .fail { color: var(--cheat); font-weight: 600; }
@@ -236,3 +237,5 @@ code { font-family: var(--mono); font-size: 0.9em; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+.prereg-more { margin-top: 1.5rem; }
+.prereg-more > summary { cursor: pointer; font-weight: 600; margin-bottom: 0.8rem; }

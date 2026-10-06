@@ -152,6 +152,80 @@ export interface Audit {
   costs: { article_per_side: number; kraken_taker_per_side: number; ratio: number };
 }
 
+export interface WalletGroup {
+  wallets: number;
+  share_loss: number;
+  median: number;
+  total: number;
+  top_1pct_share_of_profit: number;
+  top_01pct_share_of_profit: number;
+}
+
+export interface PriceBand {
+  band: string;
+  tokens: number;
+  price: number;
+  won: number;
+  before_fees: number;
+  /** Return per $1 after today's fees and one tick, with its 95% interval. */
+  after: number;
+  lo: number;
+  hi: number;
+}
+
+export interface BondRun {
+  cagr: number;
+  cagr_lo: number;
+  cagr_hi: number;
+  win_rate: number;
+  max_drawdown: number;
+  final_equity: number;
+  positions: number;
+  losses: number;
+  equity_weekly: number[];
+  sports_pnl: number;
+}
+
+export interface LatencyRegime {
+  windows: number;
+  traded: number;
+  hit_rate: number;
+  mean_return: number;
+  lo95: number;
+  hi95: number;
+}
+
+export interface Polymarket {
+  preregistered_at: string;
+  preregistration_sha256: string;
+  preregistration_changes: number;
+  trials: number;
+  wallets: {
+    groups: Record<"all" | "automated" | "human" | "human_maker_heavy" | "human_taker_heavy", WalletGroup>;
+    by_volume: (WalletGroup & { band: string })[];
+  };
+  persistence: {
+    splits: { label: string; beats_null: boolean; wallets: number; top_mean_next: number; null_p025: number; null_p975: number; spearman: number }[];
+    splits_beating_null: number;
+  };
+  calibration: { markets: number; recorded_close: PriceBand[]; scheduled_end: PriceBand[] };
+  bonds: {
+    cash_rate: number;
+    weeks: string[];
+    registered: Record<"D=7" | "D=30", BondRun>;
+    open_at_end_of_day: Record<"D=7" | "D=30", BondRun>;
+  };
+  latency: {
+    variants: { name: string; eligible: boolean; passes: boolean; before: LatencyRegime; after: LatencyRegime }[];
+    works_for_retail: boolean;
+    forecast: { seconds_left: number; windows: number; model: number; market: number }[];
+  };
+  viral: {
+    fee_changes: Record<string, string>;
+    wallets: { address: string; label: string; months: { month: string; volume: number; trading_profit: number; trades: number }[] }[];
+  };
+}
+
 export interface Claim {
   slug: string;
   order: number;
@@ -161,7 +235,8 @@ export interface Claim {
   source: string;
   source_url: string;
   tested_on: string;
-  experiment: "backtest" | "tradingagents" | "article_audit";
+  experiment: "backtest" | "tradingagents" | "article_audit" | "polymarket";
+  polymarket_test?: "latency" | "bonds" | "copy";
   verdict: "alpha" | "not_alpha";
   summary: string;
   what_we_tested: string;
@@ -188,6 +263,7 @@ export interface SiteData {
     preregistered_at: string;
     preregistration_changes: number;
     trials: number;
+    polymarket_trials: number;
     runs_logged: number;
     fees: Record<FeeKey, number>;
     design_period: string;
@@ -198,6 +274,7 @@ export interface SiteData {
   };
   story: Story;
   claims: Claim[];
+  polymarket: Polymarket;
   live: {
     forward_test: { start: string; end: string; weeks: number; calls: Call[] };
     paper: {
@@ -210,5 +287,6 @@ export interface SiteData {
     limitations: string[];
     corrections: { date: string; text: string }[];
     preregistration_text: string;
+    polymarket_preregistration_text: string;
   };
 }

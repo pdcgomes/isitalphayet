@@ -8,9 +8,11 @@
   <br><sub><a href="share/is-it-alpha-yet.mp4">The full film</a> (53 s, MP4, 4:5 for X)</sub>
 </p>
 
-As of 5 October 2026: five viral claims tested, none passed. The best strategy we tried only matched simply holding
-Bitcoin after real fees, and lost to it on years it had never seen. An open-source AI trading agent called the market
-right 16 times out of 34; a fair coin managed 20.
+As of 6 October 2026: eight viral claims tested, none passed. The best crypto strategy we tried only matched simply
+holding Bitcoin after real fees, and lost to it on years it had never seen. An open-source AI trading agent called the
+market right 16 times out of 34; a fair coin managed 20. On Polymarket, 70% of wallets lose, the money flows from people
+to bots, and neither the "bonds" nor the latency bots the viral posts sell beat cash or luck
+([write-up](experiments/polymarket/REPORT.md)).
 
 Education, not financial advice.
 
@@ -79,6 +81,7 @@ Built for phones first, since that's where the posts are read:
 - `src/lab/`: data download and checks, the simulator, fee scenarios, metrics, deflated Sharpe, walk-forward and gates, the trials ledger
 - `experiments/`: the pre-registration and every experiment, results in `experiments/results/`
 - `experiments/tradingagents/`: the TradingAgents runner (cost tracking, $35 hard stop) and scorer
+- `experiments/polymarket/`: the Polymarket study, with its own pre-registration, six tests and [write-up](experiments/polymarket/REPORT.md)
 - `claims/`: one TOML file per claim on the site
 - `content/site.toml`: site copy that isn't a lab output (gates, limitations, corrections, source facts)
 - `paper/`: the paper trader and its append-only ledger
@@ -111,6 +114,15 @@ uv venv --python 3.13 .venv && uv pip install --python .venv/bin/python ./vendor
 cd ../..
 experiments/tradingagents/.venv/bin/python experiments/tradingagents/run_ta.py grid
 uv run python experiments/tradingagents/score.py
+```
+
+The Polymarket study downloads about 8 GB of pinned public data (no account or key needed):
+
+```bash
+uv run python experiments/polymarket/fetch_data.py wallets && uv run python experiments/polymarket/fetch_data.py books
+for t in wallets persistence calibration bonds latency latency_diagnostics viral_wallets report; do
+  uv run python experiments/polymarket/$t.py
+done
 ```
 
 ## Add a new claim

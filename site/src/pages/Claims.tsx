@@ -11,13 +11,14 @@ export default function Claims() {
         <p className="kicker">The tracker</p>
         <h1>Is it alpha yet? Not for any of these.</h1>
         <p className="prose muted">
-          Every claim was tested the same way: rules written down before the test, real prices, real UK fees and every
-          attempt counted. A claim earns “alpha” only by beating simply holding on data it never saw.
+          Every claim was tested the same way: rules written down before the test, real prices, real fees and every attempt
+          counted. A claim earns “alpha” only by beating the honest alternative (simply holding, cash, or a coin flip) on data
+          it never saw.
         </p>
         <div className="stats">
           <Stat value={meta.claims_tested} label="Claims tested" />
           <Stat value={meta.claims_passed} label="Passed" />
-          <Stat value={meta.trials} label="Strategy variants counted" />
+          <Stat value={meta.trials + meta.polymarket_trials} label="Strategy versions counted" />
         </div>
       </header>
       <ol className="claim-list">

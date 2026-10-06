@@ -1,0 +1,14 @@
+slug = "polymarket-latency-bots"
+order = 6
+title = "Polymarket latency bots: \"$313 into $414K in a month\""
+kind = "Viral X posts and paid bots"
+claim = "A bot watches Binance, where Bitcoin's price moves first, and buys Polymarket's 15-minute \"Up or Down\" shares before the odds catch up. \"Turned $313 into $414k in one month… 98% win rate.\" Paid versions sell for $499 to $999, and a newer post says a Claude Code bot turned $68 into $750,000."
+source = "X post, January 2026; bot sellers; the Claude Code version, October 2026"
+source_url = "https://x.com/DextersSolab/status/2008285935650181231"
+tested_on = "2026-10-06"
+experiment = "polymarket"
+polymarket_test = "latency"
+families = []
+verdict = "not_alpha"
+summary = "The famous wallets were real: industrial bots trading around the clock. They stopped in March 2026, when Polymarket's fees reached every crypto market. Replayed on recorded order books with today's fees and realistic delays, no version of the bot beat luck, and the market's own price forecast the outcome better than the bot did."
+what_we_tested = "The wallets' month-by-month record from Polymarket's public data, then the bot itself: ten randomly drawn days of order books recorded every 100 ms between May and August 2026, against Binance prices. Six versions (three delays, two safety margins), today's crypto fee, and orders filled only at prices no worse than when they fired."
